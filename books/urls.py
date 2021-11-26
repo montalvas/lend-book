@@ -6,6 +6,6 @@ app_name = 'books'
 
 urlpatterns = [
     # Página inicial
-    path('/', IndexTemplateView.as_view(), name='index'),
-    path('/cadastrar', CadastrarCreateView.as_view(), name='cadastrar')
+    path('', IndexTemplateView.as_view(), name='index'),
+    path('cadastrar/', CadastrarCreateView.as_view(), name='cadastrar')
 ]

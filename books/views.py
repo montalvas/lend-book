@@ -7,4 +7,5 @@ class IndexTemplateView(TemplateView):
     template_name = 'books/index.html'
 
 class CadastrarCreateView(CreateView):
-    pass
+    # Mostra a página de cadastro
+    template_name = 'books/cadastro.html'
