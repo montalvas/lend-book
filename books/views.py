@@ -1,11 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView
 
 
-class IndexTemplateView(TemplateView):
-    # Mostra a página inicial
-    template_name = 'books/index.html'
+def index(request):
+    """Mostra os livros"""
+    return render(request, 'books/index.html')
 
-class CadastrarCreateView(CreateView):
-    # Mostra a página de cadastro
-    template_name = 'books/cadastro.html'
+def cadastro(request):
+    """Página de cadastro de livro"""
+    return render(request, 'books/cadastro.html')

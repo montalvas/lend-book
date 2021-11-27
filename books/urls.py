@@ -1,11 +1,11 @@
 from django.urls import path
-from .views import *
+from books import views
 
 
 app_name = 'books'
 
 urlpatterns = [
     # Página inicial
-    path('', IndexTemplateView.as_view(), name='index'),
-    path('cadastrar/', CadastrarCreateView.as_view(), name='cadastrar')
+    path('', views.index, name='index'),
+    path('cadastro/', views.cadastro, name='cadastro'),
 ]
