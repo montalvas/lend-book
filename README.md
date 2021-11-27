@@ -14,4 +14,7 @@ Sistema de gestão para empréstimo de livros em django.
 
 * Criado o app users
     - Para que seja feita restrição de acesso por usuário
-* 
+* Configurado em settings para reconhecer o diretório do projeto
+* Adicionado bootstrap no template base
+* Criado o template de cadastro de usuário
+* Padrão de views como functions based views
