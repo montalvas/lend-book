@@ -6,5 +6,10 @@ app_name = 'users'
 urlpatterns = [
     # Página de login
     path('login/', views.login, name='login'),
-    path('cadastro/', views.cadastro, name='cadastro')
+    
+    # Página de cadastro
+    path('cadastro/', views.cadastro, name='cadastro'),
+    
+    # Página de validar cadastro
+    path('valida_cadastro/', views.valida_cadastro, name='valida_cadastro')
 ]

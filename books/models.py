@@ -6,7 +6,7 @@ class Book(models.Model):
     name = models.CharField(max_length=100)
     author = models.CharField(max_length=50)
     co_author = models.CharField(max_length=50, blank=True)
-    date_register = models.DateTimeField(auto_now_add=True)
+    date_added = models.DateTimeField(auto_now_add=True)
     lent = models.BooleanField(default=False)
     
     def __str__(self):
