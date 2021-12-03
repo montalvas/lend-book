@@ -19,3 +19,4 @@ Sistema de gestão para empréstimo de livros em django.
 * Criado o template de cadastro de usuário
 * Padrão de views como functions based views
 * Configurada a view e o template de cadastro de usuário
+* Configurada a validação de cadastro e login
