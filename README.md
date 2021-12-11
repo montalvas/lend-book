@@ -20,3 +20,11 @@ Sistema de gestão para empréstimo de livros em django.
 * Padrão de views como functions based views
 * Configurada a view e o template de cadastro de usuário
 * Configurada a validação de cadastro e login
+
+## Stage three:
+
+* Criado a model Category e adicionada a chave estrangeira na model Book
+* Restrição de acesso aos livros por usuário
+* Estilizar a home
+* Criar a url dinâmica para acesso às informações do livro
+* Estilizar a página de detalhes

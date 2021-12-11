@@ -16,9 +16,10 @@
     <!-- As a link -->
     <nav class="navbar navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Lendbook</a>
+        <a class="navbar-brand" href="{% url 'books:home' %}">Lendbook</a>
       </div>
     </nav>
+    <br>
 
     {% block content %}{% endblock content %}
 
