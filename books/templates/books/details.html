@@ -4,28 +4,52 @@
 
 {% block content %}
 
-<div style="text-align: center;" class="container">
-    <h2>{{ book.name }}</h2>
-    <hr>
-    <p><strong>Autor:</strong> {{ book.author }}</p>
-    {% if book.co_author %}
-    <p><strong>Co-Autor:</strong> {{ book.co_author }}</p>
-    {% endif %}
-    <p><strong>Categoria:</strong> {{ book.category }}</p>
-    <p><strong>Data cadastro:</strong> {{ book.date_added }}</p>
-    <p>
-        <strong>Emprestado:</strong>
-        {% if book.lent %}
-            <svg style="color: green; display: inline-block;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-square-fill" viewBox="0 0 16 16">
-            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/>
-            </svg>
-        {% else %}
-            <svg style="color: red; display: inline-block;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square-fill" viewBox="0 0 16 16">
-            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"/>
-            </svg>
-        {% endif %}
-        <p><strong>Histórico:</strong></p>
-    </p>
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-6 col-sm-8">
+            <form">
+                <!--Livro-->
+                <div class="form-group mb-3">
+                  <label class="mb-3" for="name">Nome do livro:</label>
+                  <input type="text" class="form-control" id="name" value="{{ book.name }}">
+                </div>
+                <!--Autor-->
+                <div class="form-group mb-3">
+                    <label class="mb-3" for="author">Autor:</label>
+                    <input type="text" class="form-control" id="author" value="{{ book.author }}">
+                </div>
+                <!--Co-autor-->
+                {% if book.co_author %}
+                <div class="form-group mb-3">
+                    <label class="mb-3" for="coauthor">Co-autor:</label>
+                    <input type="text" class="form-control" id="coauthor" value="{{ book.co_author }}">
+                </div>
+                {% endif %}
+                <!--Categoria-->
+                <div class="form-group mb-3">
+                    <label class="mb-3" for="category">Categoria:</label>
+                    <input type="text" class="form-control" id="category" value="{{ book.category }}">
+                </div>
+                <!--Data de cadastro-->
+                <div class="form-group mb-3">
+                    <label class="mb-3" for="date">Data de cadastro:</label>
+                    <input type="text" class="form-control" id="date" value="{{ book.date_added }}" readonly>
+                </div>
+                <!--Emprestado-->
+                <div class="form-group mb-3">
+                    <label class="mb-3" for="date">Emprestado:</label>
+                    {% if book.lent %}
+                    <input class="form-check-input" type="checkbox" checked name="lent">
+                    {% else %}
+                    <input class="form-check-input" type="checkbox" name="lent">
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Salvar</button>
+              </form>
+        </div><!--col-->
+        <div class="col"></div>
+    </div><!--row-->
 </div><!--container-->
 
 {% endblock content %}

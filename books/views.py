@@ -1,15 +1,24 @@
-from django.shortcuts import render
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect 
 from users.models import User
 from .models import Book
 
 
 def home(request):
     """Mostra os livros"""
-    if request.session.get('user'):
-        user = User.objects.get(id=request.session['user'])
+    user_id = request.session.get('user')
+    
+    if user_id:
+        # Verificando erros de acesso
+        status = request.GET.get('status')
+        
+        # Acessando todos os livros do usuário
+        user = User.objects.get(id=user_id)
         books = user.book_set.all()
-        context = {'books': books}
+        context = {
+            'books': books,
+            'status': status,
+            }
+        
         return render(request, 'books/home.html', context)
     else:
         return redirect('/auth/login/?status=2')
@@ -17,7 +26,20 @@ def home(request):
 
 def details(request, id):
     """Página de detalhes do livro"""
-    book = Book.objects.get(id=id)
-    context = {'book': book}
-    return render(request, 'books/details.html', context)
+    user_id = request.session.get('user')
+    
+    if user_id:
+        try:
+            book = Book.objects.get(id=id)
+        except:
+            return redirect('/book/home/?status=1')
+        
+        # Verifica se o livro está registrado no usuário que está acessando
+        if book.user.id == user_id:
+            context = {'book': book}
+            return render(request, 'books/details.html', context)
+        else:
+            return redirect('/book/home/?status=2')
+    else:
+        return redirect('/auth/login/?status=2')
     

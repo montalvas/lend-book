@@ -28,3 +28,8 @@ Sistema de gestão para empréstimo de livros em django.
 * Estilizar a home
 * Criar a url dinâmica para acesso às informações do livro
 * Estilizar a página de detalhes
+
+## Stage Four
+
+* Corrigido problemas de autenticação (detalhes do livro)
+* Criado o formulário de informação do livro
