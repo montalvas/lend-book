@@ -6,6 +6,7 @@ class Category(models.Model):
     """Categoria para cada livro"""
     name = models.CharField(max_length=30, unique=True)
     description = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     
     class Meta:
         verbose_name_plural = 'Categories'
@@ -25,14 +26,17 @@ class Book(models.Model):
     
     def __str__(self):
         """Nome do livro"""
-        return self.name
+        if len(self.name) > 20:
+            return self.name[:20] + "..."
+        else:
+            return self.name
 
 class Loan(models.Model):
     """Empréstimo do livro"""
     borrower = models.CharField(max_length=50)
-    loan_date = models.DateField()
-    borrowed_days = models.IntegerField(default=0)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    loan_date = models.DateField(auto_now_add=True)
+    return_date = models.DateField(null=True, blank=True)
+    book = models.ForeignKey(Book, on_delete=models.DO_NOTHING)
     
     def __str__(self):
         """Nome do mutuário"""

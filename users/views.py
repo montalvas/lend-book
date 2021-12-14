@@ -7,15 +7,21 @@ from .models import *
 
 def login(request):
     """Faz o login do usuário"""
-    status = request.GET.get('status')
-    context = {'status': status}
-    return render(request, 'users/login.html', context)
+    if request.session.get('user'):
+        return redirect('/book/home')
+    else:
+        status = request.GET.get('status')
+        context = {'status': status}
+        return render(request, 'users/login.html', context)
 
 def cadastro(request):
     """Cdastra um usuário"""
-    status = request.GET.get('status')
-    context = {'status': status}
-    return render(request, 'users/cadastro.html', context)
+    if request.session.get('user'):
+        return redirect('/book/home')
+    else:
+        status = request.GET.get('status')
+        context = {'status': status}
+        return render(request, 'users/cadastro.html', context)
 
 def valida_cadastro(request):
     """Faz a validação do cadastro do usuário"""

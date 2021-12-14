@@ -5,10 +5,19 @@
 {% block content %}
 
 <div class="container">
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'users:logout' %}">Logout</a>
+        </li>
+    </ul>
+
     <div class="row">
         <div class="col"></div>
         <div class="col-6 col-sm-8">
-            <form">
+            <h1 style="text-align: center;">Dados do livro:</h1>
+            <hr>
+            <form method="POST" action="#">
+                {% csrf_token %}
                 <!--Livro-->
                 <div class="form-group mb-3">
                   <label class="mb-3" for="name">Nome do livro:</label>
@@ -29,7 +38,15 @@
                 <!--Categoria-->
                 <div class="form-group mb-3">
                     <label class="mb-3" for="category">Categoria:</label>
-                    <input type="text" class="form-control" id="category" value="{{ book.category }}">
+                    <select  name="category" id="category">
+                        {% for category in categories %}
+                            {% if category == book.category %}
+                                <option value="{{ category }}" selected>{{ category }}</option>
+                            {% else %}
+                                <option value="{{ category }}">{{ category }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
                 </div>
                 <!--Data de cadastro-->
                 <div class="form-group mb-3">
@@ -46,7 +63,36 @@
                     {% endif %}
                 </div>
                 <button type="submit" class="btn btn-primary mt-3">Salvar</button>
-              </form>
+            </form>
+            <hr>
+
+            <h2 class="mt-4">Histórico de empréstimos:</h2>
+            <table class="table table-bordered mt-4">
+                <thead>
+                    <tr>
+                        <th scope="col">Tomador</th>
+                        <th scope="col">Data de Empréstimo</th>
+                        <th scope="col">Data de Devolução</th>
+                        <th scope="col">Dias Emprestados</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if loans %}
+                        {% for loan in loans %}
+                        <tr>
+                            <th scope="row">{{ loan.borrower }}</th>
+                            <td>{{ loan.loan_date }}</td>
+                            {% if loan.return_date %}
+                                <td>{{ loan.return_date }}</td>
+                            {% else %}
+                                <td style="text-align: center;">-</td>
+                            {% endif %}
+                            <td>0</td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
         </div><!--col-->
         <div class="col"></div>
     </div><!--row-->

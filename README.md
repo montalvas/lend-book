@@ -33,3 +33,7 @@ Sistema de gestão para empréstimo de livros em django.
 
 * Corrigido problemas de autenticação (detalhes do livro)
 * Criado o formulário de informação do livro
+* Modificado o model categoria para incluir o usuário como foreignkey
+* Configurado o model empréstimo
+* Criado no template a tabela de empréstimos
+* Add link de logout

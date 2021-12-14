@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect 
 from users.models import User
-from .models import Book
+from .models import Book, Category, Loan
 
 
 def home(request):
@@ -36,7 +36,13 @@ def details(request, id):
         
         # Verifica se o livro está registrado no usuário que está acessando
         if book.user.id == user_id:
-            context = {'book': book}
+            categories = Category.objects.filter(user_id=user_id)
+            loans = book.loan_set.all()
+            context = {
+                'book': book,
+                'categories': categories,
+                'loans': loans
+                }
             return render(request, 'books/details.html', context)
         else:
             return redirect('/book/home/?status=2')
