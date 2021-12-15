@@ -35,7 +35,7 @@
             <h5 class="modal-title" id="exampleModalLabel">Cadastrar livro</h5>
           </div>
           <div class="modal-body">
-            <form method="POST" action="{% url 'books:register_book' %}">
+            <form method="POST" action="{% url 'books:register_book' %}">{% csrf_token %}
               <table>
                 {{ form.as_table }}
               </table>

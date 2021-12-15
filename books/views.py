@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect 
+from django.http import HttpResponse
 from users.models import User
 from .models import Book, Category
 from .forms import BookForm
 
-form = BookForm()
 
 def home(request):
     """Mostra os livros"""
@@ -16,6 +16,7 @@ def home(request):
         # Acessando todos os livros do usuário
         user = User.objects.get(id=user_id)
         books = user.book_set.all()
+        form = BookForm()
         context = {
             'books': books,
             'status': status,
@@ -41,6 +42,7 @@ def details(request, id):
         if book.user.id == user_id:
             categories = Category.objects.filter(user_id=user_id)
             loans = book.loan_set.all()
+            form = BookForm()
             context = {
                 'book': book,
                 'categories': categories,
@@ -60,12 +62,10 @@ def register_book(request):
     if user_id:
         if request.method == 'POST':
             form = BookForm(request.POST)
-            
-            if form.is_valid():
-                form.save()
-                return redirect('/book/home/')
-            else:
-                return redirect('/book/home/')
+            new_book = form.save(commit=False)
+            new_book.user = User.objects.get(id=user_id)
+            new_book.save()
+            return redirect('/book/home/')
         else:
             return redirect('/book/home/?status=2')
     else:
