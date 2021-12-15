@@ -17,6 +17,8 @@ def home(request):
         user = User.objects.get(id=user_id)
         books = user.book_set.all()
         form = BookForm()
+        # Modifica o campo categoria para receber a categoria registrada no usuario
+        form.fields['category'].queryset = Category.objects.filter(user_id=user_id)
         context = {
             'books': books,
             'status': status,
@@ -43,6 +45,8 @@ def details(request, id):
             categories = Category.objects.filter(user_id=user_id)
             loans = book.loan_set.all()
             form = BookForm()
+            # Modifica o campo categoria para receber a categoria registrada no usuario
+            form.fields['category'].queryset = Category.objects.filter(user_id=user_id)
             context = {
                 'book': book,
                 'categories': categories,
@@ -62,9 +66,10 @@ def register_book(request):
     if user_id:
         if request.method == 'POST':
             form = BookForm(request.POST)
-            new_book = form.save(commit=False)
-            new_book.user = User.objects.get(id=user_id)
-            new_book.save()
+            if form.is_valid():
+                new_book = form.save(commit=False)
+                new_book.user = User.objects.get(id=user_id)
+                new_book.save()
             return redirect('/book/home/')
         else:
             return redirect('/book/home/?status=2')
