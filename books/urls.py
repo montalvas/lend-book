@@ -9,4 +9,6 @@ urlpatterns = [
     path('home/', views.home, name='home'),
     # Página de informações do livro
     path('details/<int:id>', views.details, name='details'),
+    # Página de cadastro de livro
+    path('new/', views.register_book, name='register_book')
 ]

@@ -37,3 +37,11 @@ Sistema de gestão para empréstimo de livros em django.
 * Configurado o model empréstimo
 * Criado no template a tabela de empréstimos
 * Add link de logout
+
+## Stage Five
+
+* Alterado o design dos botões de login e cadastro
+* add o link de logout na nav
+* Criado o filtro para calcular os dias emprestados
+* Criado um modal em base para cadastro de novo livro
+* Criado formulario de cadastro em django forms

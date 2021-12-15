@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect 
 from users.models import User
-from .models import Book, Category, Loan
+from .models import Book, Category
+from .forms import BookForm
 
+form = BookForm()
 
 def home(request):
     """Mostra os livros"""
@@ -17,13 +19,14 @@ def home(request):
         context = {
             'books': books,
             'status': status,
+            'auth_user': user_id,
+            'form': form
             }
         
         return render(request, 'books/home.html', context)
     else:
         return redirect('/auth/login/?status=2')
     
-
 def details(request, id):
     """Página de detalhes do livro"""
     user_id = request.session.get('user')
@@ -41,7 +44,9 @@ def details(request, id):
             context = {
                 'book': book,
                 'categories': categories,
-                'loans': loans
+                'loans': loans,
+                'auth_user': user_id,
+                'form': form
                 }
             return render(request, 'books/details.html', context)
         else:
@@ -49,3 +54,19 @@ def details(request, id):
     else:
         return redirect('/auth/login/?status=2')
     
+def register_book(request):
+    user_id = request.session.get('user')
+    
+    if user_id:
+        if request.method == 'POST':
+            form = BookForm(request.POST)
+            
+            if form.is_valid():
+                form.save()
+                return redirect('/book/home/')
+            else:
+                return redirect('/book/home/')
+        else:
+            return redirect('/book/home/?status=2')
+    else:
+        return redirect('/auth/login/?status=2')
