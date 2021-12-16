@@ -75,3 +75,20 @@ def register_book(request):
             return redirect('/book/home/?status=2')
     else:
         return redirect('/auth/login/?status=2')
+
+def delete_book(request, id):
+    user_id = request.session.get('user')
+    
+    if user_id:
+        user = User.objects.get(id=user_id)
+        book = Book.objects.get(id=id)
+        
+        if book.user == user:
+            book.delete()
+            return redirect('/book/home/')
+        else:
+            return redirect('/book/home/?status=2')
+        
+        
+    else:
+        return redirect('/auth/login/?status=2')

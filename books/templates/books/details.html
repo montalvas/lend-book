@@ -57,10 +57,34 @@
                     <input class="form-check-input" type="checkbox" name="lent">
                     {% endif %}
                 </div>
-                <button type="submit" class="btn btn-success mt-3">Salvar</button>
+                <!-- botões -->
+                <div>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">
+                        Excluir
+                    </button>
+  
+                </div>
             </form>
             <hr>
 
+            <!-- Modal Excluir -->
+            <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="delete">Tem certeza que deseja excluir?</h5>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-success" href="{% url 'books:delete_book' book.id %}"">Confirmar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Tabela de empréstimos-->
             <h2 class="mt-4">Histórico de empréstimos:</h2>
             <table class="table table-bordered mt-4">
                 <thead>

@@ -19,7 +19,7 @@
         {% for book in books %}
             <div class="col-md mb-3">
                 <div class="card" style="width: 18rem;">
-                    <div class="card-body">
+                    <div class="card-body" style="text-align: center;">
                         <h5 class="card-title mb-3">{{ book }}</h5>
                         <h6 style="display: inline;" class="card-subtitle mb-3 text-muted">Emprestado: </h6>
                         {% if book.lent %}
@@ -31,10 +31,31 @@
                             <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"/>
                           </svg>
                         {% endif %}
+                        <!--
                         <button style="display: block;" class="btn btn-primary mt-3">
                             <a style="color: white; text-decoration: none;" href="{% url 'books:details' book.id %}" >Acessar</a>
-                        </button>
-                        
+                        </button>-->
+                        <div class="mt-4">
+                            <a class="btn btn-primary" href="{% url 'books:details' book.id %}"">Acessar</a>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">
+                                Excluir
+                            </button>
+                        </div>
+
+                        <!-- Modal Excluir -->
+                        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="delete">Tem certeza que deseja excluir?</h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                    <a class="btn btn-success" href="{% url 'books:delete_book' book.id %}"">Confirmar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                   </div>
             </div>

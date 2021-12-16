@@ -10,5 +10,7 @@ urlpatterns = [
     # Página de informações do livro
     path('details/<int:id>', views.details, name='details'),
     # Página de cadastro de livro
-    path('new/', views.register_book, name='register_book')
+    path('new/', views.register_book, name='register_book'),
+    # Página de exclusão de livro
+    path('delete/<int:id>', views.delete_book, name='delete_book'),
 ]

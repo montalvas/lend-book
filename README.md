@@ -45,3 +45,7 @@ Sistema de gestão para empréstimo de livros em django.
 * Criado o filtro para calcular os dias emprestados
 * Criado um modal em base para cadastro de novo livro
 * Criado formulario de cadastro em django forms
+
+## Stage Six
+
+* Add o botão de excluir
