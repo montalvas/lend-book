@@ -8,6 +8,7 @@
 <div class="container">
     <div class="row">
         <div class="col"></div>
+
         <div class="col-6 col-sm-8">
             <h1 style="text-align: center;">Dados do livro:</h1>
             <hr>
@@ -60,11 +61,14 @@
                 <!-- botões -->
                 <div>
                     <button type="submit" class="btn btn-success">Salvar</button>
-                    <!-- Button trigger modal -->
+                    <!-- Button trigger modal excluir -->
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">
                         Excluir
                     </button>
-  
+                    <!-- Button trigger modal histórico -->
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bd-example-modal-lg">
+                        Histórico
+                    </button>
                 </div>
             </form>
             <hr>
@@ -84,35 +88,51 @@
                 </div>
             </div>
 
-            <!--Tabela de empréstimos-->
-            <h2 class="mt-4">Histórico de empréstimos:</h2>
-            <table class="table table-bordered mt-4">
-                <thead>
-                    <tr>
-                        <th scope="col">Tomador</th>
-                        <th scope="col">Data de Empréstimo</th>
-                        <th scope="col">Data de Devolução</th>
-                        <th scope="col">Dias Emprestados</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if loans %}
-                        {% for loan in loans %}
-                        <tr>
-                            <th scope="row">{{ loan.borrower }}</th>
-                            <td>{{ loan.loan_date }}</td>
-                            {% if loan.return_date %}
-                            <td>{{ loan.return_date }}</td>
-                            {% else %}
-                            <td style="text-align: center;">-</td>
-                            {% endif %}
-                            <td style="text-align: center;">{{ loan.loan_date|borrowed_days }} dia(s)</td>
-                        </tr>
-                        {% endfor %}
-                    {% endif %}
-                </tbody>
-            </table>
+            <!-- Modal histórico -->
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Histórico de Emprestimos:</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div><!--header-->
+                        <div class="modal-body">
+                            <table class="table table-bordered mt-4">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Tomador</th>
+                                        <th scope="col">Data de Empréstimo</th>
+                                        <th scope="col">Data de Devolução</th>
+                                        <th scope="col">Dias Emprestados</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if loans %}
+                                        {% for loan in loans %}
+                                        <tr>
+                                            <th scope="row">{{ loan.borrower }}</th>
+                                            <td>{{ loan.loan_date }}</td>
+                                            {% if loan.return_date %}
+                                            <td>{{ loan.return_date }}</td>
+                                            {% else %}
+                                            <td style="text-align: center;">-</td>
+                                            {% endif %}
+                                            <td style="text-align: center;">{{ loan.loan_date|borrowed_days }} dia(s)</td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div><!--body-->
+                    </div>
+                </div>
+                </div>
+            
+
         </div><!--col-->
+
         <div class="col"></div>
     </div><!--row-->
 </div><!--container-->

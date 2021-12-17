@@ -81,14 +81,8 @@ def delete_book(request, id):
     
     if user_id:
         user = User.objects.get(id=user_id)
-        book = Book.objects.get(id=id)
-        
-        if book.user == user:
-            book.delete()
-            return redirect('/book/home/')
-        else:
-            return redirect('/book/home/?status=2')
-        
-        
+        book = user.book_set.all().filter(id=id)
+        book.delete()
+        return redirect('/book/home/')
     else:
         return redirect('/auth/login/?status=2')
