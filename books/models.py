@@ -4,7 +4,7 @@ from users.models import User
 
 class Category(models.Model):
     """Categoria para cada livro"""
-    name = models.CharField(max_length=30, unique=True)
+    name = models.CharField(max_length=30)
     description = models.TextField()
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     

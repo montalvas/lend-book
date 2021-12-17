@@ -18,7 +18,14 @@ def home(request):
         books = user.book_set.all()
         form = BookForm()
         # Modifica o campo categoria para receber a categoria registrada no usuario
-        form.fields['category'].queryset = Category.objects.filter(user_id=user_id)
+        categories = Category.objects.filter(user_id=user_id)
+        
+        if not categories:
+            category = Category(name='Geral', description='Livros em geral', user=user)
+            category.save()
+            
+        form.fields['category'].queryset = categories
+        
         context = {
             'books': books,
             'status': status,
