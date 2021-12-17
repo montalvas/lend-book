@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from users.models import User
 from .models import Book, Category
-from .forms import BookForm
+from .forms import BookForm, CategoryForm
 
 
 def home(request):
@@ -17,6 +17,7 @@ def home(request):
         user = User.objects.get(id=user_id)
         books = user.book_set.all()
         form = BookForm()
+        form_category = CategoryForm()
         # Modifica o campo categoria para receber a categoria registrada no usuario
         categories = Category.objects.filter(user_id=user_id)
         
@@ -30,7 +31,8 @@ def home(request):
             'books': books,
             'status': status,
             'auth_user': user_id,
-            'form': form
+            'form': form,
+            'form_category': form_category
             }
         
         return render(request, 'books/home.html', context)
@@ -91,5 +93,21 @@ def delete_book(request, id):
         book = user.book_set.all().filter(id=id)
         book.delete()
         return redirect('/book/home/')
+    else:
+        return redirect('/auth/login/?status=2')
+
+def register_category(request):
+    user_id = request.session.get('user')
+    
+    if user_id:
+        if request.method == 'POST':
+            form = CategoryForm(request.POST)
+            if form.is_valid():
+                new_category = form.save(commit=False)
+                new_category.user = User.objects.get(id=user_id)
+                new_category.save()
+            return redirect('/book/home/?status=0')
+        else:
+            return redirect('/book/home/?status=2')
     else:
         return redirect('/auth/login/?status=2')

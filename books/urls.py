@@ -7,10 +7,12 @@ app_name = 'books'
 urlpatterns = [
     # Página inicial
     path('home/', views.home, name='home'),
-    # Página de informações do livro
+    # Informações do livro
     path('details/<int:id>', views.details, name='details'),
-    # Página de cadastro de livro
-    path('new/', views.register_book, name='register_book'),
-    # Página de exclusão de livro
+    # Cadastro de livro
+    path('new_book/', views.register_book, name='register_book'),
+    # Exclusão de livro
     path('delete/<int:id>', views.delete_book, name='delete_book'),
+    # Cadastro de categoria
+    path('new_category/', views.register_category, name='register_category'),
 ]
