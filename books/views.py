@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from users.models import User
 from .models import Book, Category
-from .forms import BookForm, CategoryForm
+from .forms import BookForm, CategoryForm, LoanForm
 
 
 def home(request):
@@ -18,6 +18,7 @@ def home(request):
         books = user.book_set.all()
         form = BookForm()
         form_category = CategoryForm()
+        form_loan = LoanForm()
         # Modifica o campo categoria para receber a categoria registrada no usuario
         categories = Category.objects.filter(user_id=user_id)
         
@@ -32,7 +33,8 @@ def home(request):
             'status': status,
             'auth_user': user_id,
             'form': form,
-            'form_category': form_category
+            'form_category': form_category,
+            'form_loan': form_loan
             }
         
         return render(request, 'books/home.html', context)
@@ -111,3 +113,7 @@ def register_category(request):
             return redirect('/book/home/?status=2')
     else:
         return redirect('/auth/login/?status=2')
+
+
+    
+    

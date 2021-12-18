@@ -1,6 +1,6 @@
 from django import forms
 from django.db.models import fields
-from .models import Book, Category
+from .models import Book, Category, Loan
 
 class BookForm(forms.ModelForm):
     class Meta:
@@ -22,3 +22,12 @@ class CategoryForm(forms.ModelForm):
             'name': 'Nome da categoria',
             'description': 'Descrição'
         }
+
+class LoanForm(forms.ModelForm):
+    class Meta:
+        model = Loan
+        fields = {'borrower'}
+        labels = {
+            'borrower': 'Mutuário'
+        }
+    

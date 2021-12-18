@@ -23,50 +23,6 @@
       </div>
     </nav>
 
-    {% if auth_user %}
-    <!-- Modal newbook -->
-    <div class="modal fade" id="newcategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Cadastrar categoria</h5>
-          </div>
-          <div class="modal-body">
-            <form method="POST" action="{% url 'books:register_category' %}">{% csrf_token %}
-              <table>
-                {{ form_category.as_table }}
-              </table>
-              <hr class="mb-4">
-              <input type="submit" class="btn btn-success" value="Salvar">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal newbook -->
-    <div class="modal fade" id="newbook" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Cadastrar livro</h5>
-          </div>
-          <div class="modal-body">
-            <form method="POST" action="{% url 'books:register_book' %}">{% csrf_token %}
-              <table>
-                {{ form.as_table }}
-              </table>
-              <hr class="mb-4">
-              <input type="submit" class="btn btn-success" value="Salvar">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    {% endif %}
-
     {% block content %}{% endblock content %}
 
     <!-- JavaScript Bundle with Popper -->

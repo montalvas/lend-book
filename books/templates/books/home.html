@@ -25,6 +25,7 @@
             </button>
         </div>
     </div>
+
     <div class="row">
         {% for book in books %}
             <div class="col-md mb-3">
@@ -35,9 +36,11 @@
                         <div class="mt-4">
                             <a class="btn btn-primary" href="{% url 'books:details' book.id %}"">Acessar</a>
                             {% if book.lent %}
-                                <a class="btn btn-outline-danger" href="#" role="button">Devolver</a>
+                                <a class="btn btn-outline-danger" href="#" role="button">Devolução</a>
                             {% else %}
-                                <a class="btn btn-outline-success" href="#" role="button">Emprestar</a>
+                                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#loan">
+                                    Emprestar
+                                </button>
                             {% endif %}
                         </div>
                     </div>
@@ -45,6 +48,69 @@
             </div>
         {% endfor %}
     </div><!--row-->
+
+    <!-- Modal newbook -->
+    <div class="modal fade" id="newcategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cadastrar categoria</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{% url 'books:register_category' %}">{% csrf_token %}
+                    <table>
+                        {{ form_category.as_table }}
+                    </table>
+                    <hr class="mb-4">
+                    <input type="submit" class="btn btn-success" value="Salvar">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!--modal-->
+    
+    <!-- Modal newbook -->
+    <div class="modal fade" id="newbook" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cadastrar livro</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{% url 'books:register_book' %}">{% csrf_token %}
+                    <table>
+                        {{ form.as_table }}
+                    </table>
+                    <hr class="mb-4">
+                    <input type="submit" class="btn btn-success" value="Salvar">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!--modal-->
+
+    <!-- Modal loan -->
+    <div class="modal fade" id="loan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Empréstimo</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="#">{% csrf_token %}
+                    <table>
+                        {{ form_loan.as_table }}
+                    </table>
+                    <hr class="mb-4">
+                    <input type="submit" class="btn btn-success" value="Salvar">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!--modal-->
 </div><!--container-->
 
 {% endblock content %}
