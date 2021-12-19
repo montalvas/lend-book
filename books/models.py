@@ -36,7 +36,7 @@ class Loan(models.Model):
     borrower = models.CharField(max_length=50)
     loan_date = models.DateField(auto_now_add=True)
     return_date = models.DateField(null=True, blank=True)
-    book = models.ForeignKey(Book, on_delete=models.DO_NOTHING)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
     
     def __str__(self):
         """Nome do mutuário"""

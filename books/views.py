@@ -1,4 +1,4 @@
-from django.http.response import HttpResponsePermanentRedirect
+import datetime
 from django.shortcuts import render, redirect 
 from django.http import HttpResponse
 from users.models import User
@@ -126,6 +126,27 @@ def loan(request):
             book.save()
             
             loan = Loan(borrower=borrower, book=book)
+            
+            loan.save()
+            return redirect('/book/home/')
+        else:
+            return redirect('/book/home/?status=2')
+    else:
+        return redirect('/auth/login/?status=2')
+
+def return_book(request):
+    user_id = request.session.get('user')
+    
+    if user_id:
+        if request.method == 'POST':
+            user = User.objects.get(id=user_id)
+            book = user.book_set.get(id=request.POST.get('book_id'))
+            book.lent = False
+            book.save()
+            
+            loan = book.loan_set.get(return_date__isnull=True)
+            today = datetime.datetime.now().date()
+            loan.return_date = today
             
             loan.save()
             return redirect('/book/home/')

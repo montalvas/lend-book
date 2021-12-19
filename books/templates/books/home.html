@@ -23,6 +23,12 @@
             <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#newbook">
               Novo Livro
             </button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loan">
+                Emprestar
+            </button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#return_book">
+                Devolução
+            </button>
         </div>
     </div>
 
@@ -36,10 +42,12 @@
                         <div class="mt-4">
                             <a class="btn btn-primary" href="{% url 'books:details' book.id %}"">Acessar</a>
                             {% if book.lent %}
-                                <a class="btn btn-outline-danger" href="#" role="button">Devolução</a>
+                                <button type="button" class="btn btn-outline-danger">
+                                    Emprestado
+                                </button>
                             {% else %}
-                                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#loan">
-                                    Emprestar
+                                <button type="button" class="btn btn-outline-success">
+                                    Disponível
                                 </button>
                             {% endif %}
                         </div><!--buttons-->
@@ -124,6 +132,36 @@
             </div>
         </div>
     </div><!--modal-->
+
+    <!-- Modal return book -->
+    <div class="modal fade" id="return_book" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Devolução</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{% url 'books:return_book' %}">{% csrf_token %}         
+                        <div class="mb-3">
+                            <label class="form-label">Livro:</label>
+                            <select name="book_id" class="form-control">
+                                <option disabled selected>Escolha...</option>
+                                {% for book in books %}
+                                    {% if book.lent %}
+                                        <option value="{{ book.id }}">{{ book.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <hr class="mb-4">
+                        <input type="submit" class="btn btn-success" value="Salvar">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!--modal-->
+
 </div><!--container-->
 
 {% endblock content %}

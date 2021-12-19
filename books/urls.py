@@ -17,4 +17,6 @@ urlpatterns = [
     path('new_category/', views.register_category, name='register_category'),
     # Emprestar livro
     path('loan/', views.loan, name='loan'),
+    # Devolver livro
+    path('return_book/', views.return_book, name='return_book')
 ]
