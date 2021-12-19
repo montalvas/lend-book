@@ -1,8 +1,9 @@
+from django.http.response import HttpResponsePermanentRedirect
 from django.shortcuts import render, redirect 
 from django.http import HttpResponse
 from users.models import User
-from .models import Book, Category
-from .forms import BookForm, CategoryForm, LoanForm
+from .models import Book, Category, Loan
+from .forms import BookForm, CategoryForm
 
 
 def home(request):
@@ -18,7 +19,6 @@ def home(request):
         books = user.book_set.all()
         form = BookForm()
         form_category = CategoryForm()
-        form_loan = LoanForm()
         # Modifica o campo categoria para receber a categoria registrada no usuario
         categories = Category.objects.filter(user_id=user_id)
         
@@ -34,7 +34,6 @@ def home(request):
             'auth_user': user_id,
             'form': form,
             'form_category': form_category,
-            'form_loan': form_loan
             }
         
         return render(request, 'books/home.html', context)
@@ -114,6 +113,25 @@ def register_category(request):
     else:
         return redirect('/auth/login/?status=2')
 
-
+def loan(request):
+    user_id = request.session.get('user')
+    
+    if user_id:
+        if request.method == 'POST':
+            borrower = request.POST.get('borrower')
+            
+            user = User.objects.get(id=user_id)
+            book = user.book_set.get(id=request.POST.get('book_id'))
+            book.lent = True
+            book.save()
+            
+            loan = Loan(borrower=borrower, book=book)
+            
+            loan.save()
+            return redirect('/book/home/')
+        else:
+            return redirect('/book/home/?status=2')
+    else:
+        return redirect('/auth/login/?status=2')
     
     

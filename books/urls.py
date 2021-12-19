@@ -16,5 +16,5 @@ urlpatterns = [
     # Cadastro de categoria
     path('new_category/', views.register_category, name='register_category'),
     # Emprestar livro
-    #path('loan/<int:id>', views.loan, name='loan'),
+    path('loan/', views.loan, name='loan'),
 ]

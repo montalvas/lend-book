@@ -23,11 +23,4 @@ class CategoryForm(forms.ModelForm):
             'description': 'Descrição'
         }
 
-class LoanForm(forms.ModelForm):
-    class Meta:
-        model = Loan
-        fields = {'borrower'}
-        labels = {
-            'borrower': 'Mutuário'
-        }
     

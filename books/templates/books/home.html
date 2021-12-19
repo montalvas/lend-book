@@ -42,10 +42,10 @@
                                     Emprestar
                                 </button>
                             {% endif %}
-                        </div>
-                    </div>
-                  </div>
-            </div>
+                        </div><!--buttons-->
+                    </div><!--card body-->
+                </div><!--card-->
+            </div><!--col-->
         {% endfor %}
     </div><!--row-->
 
@@ -99,13 +99,26 @@
                     <h5 class="modal-title" id="exampleModalLabel">Empréstimo</h5>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="#">{% csrf_token %}
-                    <table>
-                        {{ form_loan.as_table }}
-                    </table>
-                    <hr class="mb-4">
-                    <input type="submit" class="btn btn-success" value="Salvar">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <form method="POST" action="{% url 'books:loan' %}">{% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label">Mutuário:</label>
+                            <input name="borrower" type="text" placeholder="Pegou emprestado..." class="form-control" required>
+                        </div>
+                
+                        <div class="mb-3">
+                            <label class="form-label">Livro:</label>
+                            <select name="book_id" class="form-control">
+                                <option disabled selected>Escolha...</option>
+                                {% for book in books %}
+                                    {% if not book.lent %}
+                                        <option value="{{ book.id }}">{{ book.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <hr class="mb-4">
+                        <input type="submit" class="btn btn-success" value="Salvar">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>
                 </div>
             </div>
