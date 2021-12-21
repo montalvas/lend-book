@@ -140,16 +140,20 @@ def return_book(request):
     if user_id:
         if request.method == 'POST':
             user = User.objects.get(id=user_id)
-            book = user.book_set.get(id=request.POST.get('book_id'))
-            book.lent = False
-            book.save()
-            
-            loan = book.loan_set.get(return_date__isnull=True)
-            today = datetime.datetime.now().date()
-            loan.return_date = today
-            
-            loan.save()
-            return redirect('/book/home/')
+            id_book = request.POST.get('book_id')
+            if id_book:
+                book = user.book_set.get(id=request.POST.get('book_id'))
+                book.lent = False
+                book.save()
+                
+                loan = book.loan_set.get(return_date__isnull=True)
+                today = datetime.datetime.now().date()
+                loan.return_date = today
+                
+                loan.save()
+                return redirect('/book/home/')
+            else:
+                return redirect('/book/home/?status=3')
         else:
             return redirect('/book/home/?status=2')
     else:

@@ -57,7 +57,7 @@
         {% endfor %}
     </div><!--row-->
 
-    <!-- Modal newbook -->
+    <!-- Modal category -->
     <div class="modal fade" id="newcategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -66,9 +66,9 @@
                 </div>
                 <div class="modal-body">
                     <form method="POST" action="{% url 'books:register_category' %}">{% csrf_token %}
-                    <table>
-                        {{ form_category.as_table }}
-                    </table>
+                        
+                        {{ form_category.as_p }}
+                    
                     <hr class="mb-4">
                     <input type="submit" class="btn btn-success" value="Salvar">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
