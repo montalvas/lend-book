@@ -2,6 +2,29 @@
 
 {% block title %}Home{% endblock title %}
 
+{% block menu %}
+<!--menu-->
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Menu
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#newcategory">
+            Nova Categoria
+        </button>
+        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#newbook">
+            Novo Livro
+        </button>
+        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#loan">
+            Emprestar
+        </button>
+        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#return_book">
+            Devolução
+        </button>
+    </div>
+</li>
+{% endblock menu %}
+
 {% block content %}
 
 {% if status == '1' %}
@@ -15,23 +38,6 @@
 {% endif %}
 
 <div class="container">
-    <div class="row">
-        <div class="mb-4">
-            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#newcategory">
-              Nova Categoria
-            </button>
-            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#newbook">
-              Novo Livro
-            </button>
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loan">
-                Emprestar
-            </button>
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#return_book">
-                Devolução
-            </button>
-        </div>
-    </div>
-
     <div class="row">
         {% for book in books %}
             <div class="col-md mb-3">

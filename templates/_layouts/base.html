@@ -13,15 +13,27 @@
     <title>{% block title %}{% endblock title %}</title>
   </head>
   <body>
-    <!-- As a link -->
-    <nav class="navbar navbar-dark bg-dark mb-4">
-      <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+      <div class="container">
         <a class="navbar-brand" href="{% url 'books:home' %}">Lendbook</a>
-        {% if auth_user %}
-          <a class="btn btn-danger" href="{% url 'users:logout' %}">Logout</a>
-        {% endif %}
-      </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul style="width: 100%; justify-content: space-between;" class="navbar-nav">
+            {% if auth_user %}
+            <!--menu-->
+            {% block menu %}{% endblock menu %}
+            <!--logout-->
+            <li class="nav-item">
+              <a class="btn btn-danger" href="{% url 'users:logout' %}">Logout</a>
+            </li>
+          </ul>
+          {% endif %}
+        </div>
+      </div><!--container-->
     </nav>
+    
 
     {% block content %}{% endblock content %}
 
