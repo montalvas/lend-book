@@ -44,7 +44,10 @@ def details(request, id):
     """Página de detalhes do livro"""
     user_id = request.session.get('user')
     
+    
     if user_id:
+        status = request.GET.get('status')
+        
         try:
             book = Book.objects.get(id=id)
         except:
@@ -54,19 +57,40 @@ def details(request, id):
         if book.user.id == user_id:
             categories = Category.objects.filter(user_id=user_id)
             loans = book.loan_set.all()
-            form = BookForm()
-            # Modifica o campo categoria para receber a categoria registrada no usuario
-            form.fields['category'].queryset = Category.objects.filter(user_id=user_id)
             context = {
                 'book': book,
                 'categories': categories,
                 'loans': loans,
                 'auth_user': user_id,
-                'form': form
+                'status': status
                 }
             return render(request, 'books/details.html', context)
         else:
             return redirect('/book/home/?status=2')
+    else:
+        return redirect('/auth/login/?status=2')
+    
+def edit_book(request):
+    user_id = request.session.get('user')
+    
+    if user_id:
+        user = User.objects.get(id=user_id)
+        book_id = request.POST.get('id')
+        
+        try:
+            book = user.book_set.get(id=book_id)
+        except:
+            return redirect('/book/home/?status=1')
+        
+        book.name = request.POST.get('name')
+        book.author = request.POST.get('author')
+        book.co_author = request.POST.get('co_author')
+        category = Category.objects.get(name=request.POST.get('category'))
+        book.category = category
+        book.save()
+        
+        return redirect(f'/book/details/{book_id}/?status=0')
+        
     else:
         return redirect('/auth/login/?status=2')
     

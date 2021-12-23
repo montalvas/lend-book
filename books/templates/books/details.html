@@ -9,6 +9,12 @@
 
 {% block content %}
 
+{% if status == '0' %}
+    <script>
+    setTimeout(function() {alert('Alterado com sucesso!');} ,0);
+   </script>
+{% endif %}
+
 <div class="container">
     <div class="row">
         <div class="col">
@@ -18,25 +24,26 @@
         <div class="col-6 col-sm-8">
             <h1 style="text-align: center;">Dados do livro:</h1>
             <hr>
-            <form method="POST" action="#">
+            <form method="POST" action="{% url 'books:edit_book' %}">
                 {% csrf_token %}
+                <!--id livro-->
+                <input type="hidden" name="id" value="{{ book.id }}">
+
                 <!--Livro-->
                 <div class="form-group mb-3">
                   <label class="mb-3" for="name">Nome do livro:</label>
-                  <input type="text" class="form-control" id="name" value="{{ book.name }}">
+                  <input type="text" class="form-control" name="name" id="name" value="{{ book.name }}">
                 </div>
                 <!--Autor-->
                 <div class="form-group mb-3">
                     <label class="mb-3" for="author">Autor:</label>
-                    <input type="text" class="form-control" id="author" value="{{ book.author }}">
+                    <input type="text" class="form-control" name="author" id="author" value="{{ book.author }}">
                 </div>
                 <!--Co-autor-->
-                {% if book.co_author %}
                 <div class="form-group mb-3">
                     <label class="mb-3" for="coauthor">Co-autor:</label>
-                    <input type="text" class="form-control" id="coauthor" value="{{ book.co_author }}">
+                    <input type="text" class="form-control" name="co_author" id="coauthor" value="{{ book.co_author }}">
                 </div>
-                {% endif %}
                 <!--Categoria-->
                 <div class="form-group mb-3">
                     <label class="mb-3" for="category">Categoria:</label>
@@ -66,7 +73,7 @@
                 <hr>
                 <!-- botões -->
                 <div>
-                    <button type="button" class="btn btn-success">Salvar</button>
+                    <button type="submit" class="btn btn-success">Salvar</button>
                     <!-- Button trigger modal excluir -->
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">
                         Excluir
