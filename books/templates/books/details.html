@@ -50,9 +50,9 @@
                     <select  name="category" id="category">
                         {% for category in categories %}
                             {% if category == book.category %}
-                                <option value="{{ category }}" selected>{{ category }}</option>
+                                <option value="{{ category.name }}" selected>{{ category }}</option>
                             {% else %}
-                                <option value="{{ category }}">{{ category }}</option>
+                                <option value="{{ category.name }}">{{ category }}</option>
                             {% endif %}
                         {% endfor %}
                     </select>

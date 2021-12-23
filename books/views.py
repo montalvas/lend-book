@@ -85,7 +85,7 @@ def edit_book(request):
         book.name = request.POST.get('name')
         book.author = request.POST.get('author')
         book.co_author = request.POST.get('co_author')
-        category = Category.objects.get(name=request.POST.get('category'))
+        category = user.category_set.get(name=request.POST.get('category'))
         book.category = category
         book.save()
         
