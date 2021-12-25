@@ -5,8 +5,9 @@ from .models import Book, Category, Loan
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ['name', 'author', 'co_author', 'category', 'lent']
+        fields = ['image', 'name', 'author', 'co_author', 'category', 'lent']
         labels = {
+            'image': 'Capa',
             'name': 'Nome do livro',
             'author': 'Nome do autor',
             'co_author': 'Nome do co-autor',

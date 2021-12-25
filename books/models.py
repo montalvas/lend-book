@@ -16,6 +16,7 @@ class Category(models.Model):
 
 class Book(models.Model):
     """Um livro para ser cadastrado"""
+    image = models.ImageField(upload_to='book_cover', null=True, blank=True)
     name = models.CharField(max_length=100)
     author = models.CharField(max_length=50)
     co_author = models.CharField(max_length=50, blank=True)

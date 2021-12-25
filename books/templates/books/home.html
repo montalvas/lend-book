@@ -42,6 +42,11 @@
         {% for book in books %}
             <div class="col-md mb-3">
                 <div class="card" style="width: 18rem;">
+                    {% if book.image %}
+                    <img src="{{ book.image.url }}" style="width: auto; max-height: 286px;">
+                    {% else %}
+                    <img src="{{ MEDIA_URL }}img.jpg" width="100%">
+                    {% endif %}
                     <div class="card-body" style="text-align: center;">
                         <h5 class="card-title mb-3">{{ book }}</h5>
                         <!-- buttons -->
