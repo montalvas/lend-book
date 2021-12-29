@@ -6,6 +6,8 @@ app_name = 'books'
 
 urlpatterns = [
     # Página inicial
+    path('', views.index, name='index'),
+    # Home
     path('home/', views.home, name='home'),
     # Informações do livro
     path('details/<int:id>/', views.details, name='details'),

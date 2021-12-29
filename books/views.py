@@ -5,6 +5,8 @@ from users.models import User
 from .models import Book, Category, Loan
 from .forms import BookForm, CategoryForm
 
+def index(request):
+    return HttpResponse('Index')
 
 def home(request):
     """Mostra os livros"""
@@ -51,7 +53,7 @@ def details(request, id):
         try:
             book = Book.objects.get(id=id)
         except:
-            return redirect('/book/home/?status=1')
+            return redirect('/home/?status=1')
         
         # Verifica se o livro está registrado no usuário que está acessando
         if book.user.id == user_id:
@@ -66,7 +68,7 @@ def details(request, id):
                 }
             return render(request, 'books/details.html', context)
         else:
-            return redirect('/book/home/?status=2')
+            return redirect('/home/?status=2')
     else:
         return redirect('/auth/login/?status=2')
     
@@ -80,7 +82,7 @@ def edit_book(request):
         try:
             book = user.book_set.get(id=book_id)
         except:
-            return redirect('/book/home/?status=1')
+            return redirect('/home/?status=1')
         
         book.name = request.POST.get('name')
         book.author = request.POST.get('author')
@@ -89,7 +91,7 @@ def edit_book(request):
         book.category = category
         book.save()
         
-        return redirect(f'/book/details/{book_id}/?status=0')
+        return redirect(f'/details/{book_id}/?status=0')
         
     else:
         return redirect('/auth/login/?status=2')
@@ -104,9 +106,9 @@ def register_book(request):
                 new_book = form.save(commit=False)
                 new_book.user = User.objects.get(id=user_id)
                 new_book.save()
-            return redirect('/book/home/')
+            return redirect('/home/?status=0')
         else:
-            return redirect('/book/home/?status=2')
+            return redirect('/home/?status=2')
     else:
         return redirect('/auth/login/?status=2')
 
@@ -117,7 +119,7 @@ def delete_book(request, id):
         user = User.objects.get(id=user_id)
         book = user.book_set.all().filter(id=id)
         book.delete()
-        return redirect('/book/home/')
+        return redirect('/home/?status=3')
     else:
         return redirect('/auth/login/?status=2')
 
@@ -131,9 +133,9 @@ def register_category(request):
                 new_category = form.save(commit=False)
                 new_category.user = User.objects.get(id=user_id)
                 new_category.save()
-            return redirect('/book/home/?status=0')
+            return redirect('/home/?status=4')
         else:
-            return redirect('/book/home/?status=2')
+            return redirect('/home/?status=2')
     else:
         return redirect('/auth/login/?status=2')
 
@@ -152,9 +154,9 @@ def loan(request):
             loan = Loan(borrower=borrower, book=book)
             
             loan.save()
-            return redirect('/book/home/')
+            return redirect('/home/?status=5')
         else:
-            return redirect('/book/home/?status=2')
+            return redirect('/home/?status=2')
     else:
         return redirect('/auth/login/?status=2')
 
@@ -175,11 +177,11 @@ def return_book(request):
                 loan.return_date = today
                 
                 loan.save()
-                return redirect('/book/home/')
+                return redirect('/home/?status=6')
             else:
-                return redirect('/book/home/?status=3')
+                return redirect('/home/?status=2')
         else:
-            return redirect('/book/home/?status=2')
+            return redirect('/home/?status=2')
     else:
         return redirect('/auth/login/?status=2')
     

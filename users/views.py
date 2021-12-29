@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from django.shortcuts import redirect
 from hashlib import sha256
 from .models import *
@@ -8,7 +7,7 @@ from .models import *
 def login(request):
     """Faz o login do usuário"""
     if request.session.get('user'):
-        return redirect('/book/home')
+        return redirect('/home')
     else:
         status = request.GET.get('status')
         context = {'status': status}
@@ -17,7 +16,7 @@ def login(request):
 def cadastro(request):
     """Cdastra um usuário"""
     if request.session.get('user'):
-        return redirect('/book/home')
+        return redirect('/home')
     else:
         status = request.GET.get('status')
         context = {'status': status}
@@ -61,9 +60,7 @@ def valida_login(request):
         return redirect('/auth/login/?status=1')
     elif len(user) == 1:
         request.session['user'] = user[0].id
-        return redirect('/book/home')
-    
-    return HttpResponse(f"email: {email} | senha: {password}")
+        return redirect('/home')
 
 def logout(request):
     """Encerra a sessão do usuário"""

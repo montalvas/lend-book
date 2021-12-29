@@ -11,7 +11,7 @@
 
 {% if status == '0' %}
     <script>
-    setTimeout(function() {alert('Alterado com sucesso!');} ,0);
+        setTimeout(function() {alert('Alterado com sucesso!');} ,0);
    </script>
 {% endif %}
 
@@ -73,15 +73,17 @@
                 <hr>
                 <!-- botões -->
                 <div>
-                    <button type="submit" class="btn btn-success">Salvar</button>
-                    <!-- Button trigger modal excluir -->
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">
-                        Excluir
-                    </button>
-                    <!-- Button trigger modal histórico -->
-                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bd-example-modal-lg">
-                        Histórico
-                    </button>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                        <!-- Button trigger modal excluir -->
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">
+                            Excluir
+                        </button>
+                        <!-- Button trigger modal histórico -->
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bd-example-modal-lg">
+                            Histórico
+                        </button>
+                    </div>
                 </div>
             </form>
             <hr>
