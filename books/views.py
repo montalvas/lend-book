@@ -1,12 +1,11 @@
 import datetime
-from django.shortcuts import render, redirect 
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from users.models import User
 from .models import Book, Category, Loan
 from .forms import BookForm, CategoryForm
 
 def index(request):
-    return HttpResponse('Index')
+    return render(request, 'books/index.html')
 
 def home(request):
     """Mostra os livros"""

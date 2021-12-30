@@ -1,0 +1,17 @@
+{% extends '_layouts/base.html' %}
+
+{% block title %}Lendbook{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">Bem-vindo ao Lendbook</h1>
+            <p class="lead">Aqui você pode gerenciar seus livros emprestados.</p>
+            <hr class="my-4">
+            <p>Crie sua conta e comece já.</p>
+            <p class="lead">
+              <a class="btn btn-primary btn-lg" href="{% url 'users:cadastro' %}" role="button">Cadastro</a>
+            </p>
+          </div>
+    </div>
+{% endblock content %}
