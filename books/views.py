@@ -5,7 +5,14 @@ from .models import Book, Category, Loan
 from .forms import BookForm, CategoryForm
 
 def index(request):
-    return render(request, 'books/index.html')
+    user_id = request.session.get('user')
+    
+    if user_id:
+        context = {'logado' : True}
+    else:
+        context = {'logado' : False}
+        
+    return render(request, 'books/index.html', context)
 
 def home(request):
     """Mostra os livros"""

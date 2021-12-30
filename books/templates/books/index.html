@@ -10,7 +10,11 @@
             <hr class="my-4">
             <p>Crie sua conta e comece já.</p>
             <p class="lead">
+              {% if logado %}
               <a class="btn btn-primary btn-lg" href="{% url 'users:cadastro' %}" role="button">Cadastro</a>
+              {% else %}
+              <a class="btn btn-primary btn-lg" href="{% url 'books:home' %}" role="button">Home</a>
+              {% endif %}
             </p>
           </div>
     </div>
