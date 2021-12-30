@@ -1,5 +1,7 @@
 from django.urls import path
 from books import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 app_name = 'books'
@@ -23,4 +25,4 @@ urlpatterns = [
     path('loan/', views.loan, name='loan'),
     # Devolver livro
     path('return_book/', views.return_book, name='return_book')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
