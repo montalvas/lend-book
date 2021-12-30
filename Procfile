@@ -1,0 +1,1 @@
+web: gunicorn lend_book.wsgi --log-file -
