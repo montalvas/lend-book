@@ -8,11 +8,9 @@ def index(request):
     user_id = request.session.get('user')
     
     if user_id:
-        context = {'logado' : True}
-    else:
-        context = {'logado' : False}
+        return redirect('books/home.html')
         
-    return render(request, 'books/index.html', context)
+    return render(request, 'books/index.html')
 
 def home(request):
     """Mostra os livros"""
