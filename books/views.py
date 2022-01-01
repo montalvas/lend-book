@@ -3,14 +3,15 @@ from django.shortcuts import render, redirect
 from users.models import User
 from .models import Book, Category, Loan
 from .forms import BookForm, CategoryForm
+from django.urls import reverse
 
 def index(request):
     user_id = request.session.get('user')
     
     if user_id:
-        return redirect('books/home.html')
+        return redirect(reverse('home'))
         
-    return render(request, 'books/index.html')
+    return render(request, '/index.html')
 
 def home(request):
     """Mostra os livros"""
