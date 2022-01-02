@@ -9,7 +9,7 @@ def index(request):
     user_id = request.session.get('user')
     
     if user_id:
-        return redirect(reverse('home'))
+        return redirect('/home/')
         
     return render(request, '/index.html')
 
