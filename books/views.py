@@ -11,7 +11,7 @@ def index(request):
     if user_id:
         return redirect('/home/')
         
-    return render(request, '/index.html')
+    return render(request, 'books/index.html')
 
 def home(request):
     """Mostra os livros"""
