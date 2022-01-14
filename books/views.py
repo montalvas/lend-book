@@ -106,7 +106,7 @@ def register_book(request):
     
     if user_id:
         if request.method == 'POST':
-            form = BookForm(request.POST)
+            form = BookForm(request.POST, request.FILES)
             if form.is_valid():
                 new_book = form.save(commit=False)
                 new_book.user = User.objects.get(id=user_id)
